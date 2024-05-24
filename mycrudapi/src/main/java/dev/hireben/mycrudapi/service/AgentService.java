@@ -3,6 +3,8 @@ package dev.hireben.mycrudapi.service;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import dev.hireben.mycrudapi.dto.AgentDTO;
 import dev.hireben.mycrudapi.model.Agent;
 import dev.hireben.mycrudapi.repository.AgentRepository;
 
@@ -16,7 +18,7 @@ public class AgentService {
     this.agentRepository = agentRepository;
   }
 
-  public void createAgent(Agent agent) throws IllegalArgumentException {
+  public Agent createAgent(AgentDTO agent) throws IllegalArgumentException {
     // Check if an agent with the same alias already exists
     Optional<Agent> existingAgent = agentRepository.findByAlias(agent.getAlias());
     // Throw exception if the alias is taken
@@ -24,7 +26,7 @@ public class AgentService {
       throw new IllegalArgumentException("An agent with alias " + agent.getAlias() + " already exists.");
     }
     // Store new agent in DB
-    agentRepository.save(agent);
+    return agentRepository.save(Agent.create(agent.getName(), agent.getAlias()));
   }
 
   public Agent getAgentByAlias(String alias) {
@@ -51,6 +53,10 @@ public class AgentService {
     if (agent != null) {
       agentRepository.delete(agent);
     }
+  }
+
+  public Iterable<Agent> getAgents() {
+    return agentRepository.findAll();
   }
 
 }

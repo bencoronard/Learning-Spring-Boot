@@ -64,7 +64,7 @@ public class SecurityConfiguration {
       .formLogin(Customizer.withDefaults())
       .httpBasic(Customizer.withDefaults());
 
-      // H2 console access
+      // For H2 console access
       http.csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"));
       http.headers(headers -> headers.frameOptions(frames -> frames.disable()));
 
