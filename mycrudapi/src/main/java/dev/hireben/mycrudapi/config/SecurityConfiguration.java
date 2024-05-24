@@ -2,6 +2,7 @@ package dev.hireben.mycrudapi.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -55,11 +56,28 @@ public class SecurityConfiguration {
 
     http
       .authorizeHttpRequests((authorize) -> {
+
         authorize
-          .requestMatchers("/h2-console/**").hasRole(Role.SUPERUSER.name())
-          .requestMatchers("/api/admin/**").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
-          .requestMatchers("/api/user/**").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name(), Role.USER.name())
-          .anyRequest().authenticated();
+          .requestMatchers("/").authenticated()
+          .requestMatchers("/h2-console/**").hasRole(Role.SUPERUSER.name());
+
+        authorize
+          .requestMatchers(HttpMethod.GET,"/api/agents").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+          .requestMatchers(HttpMethod.GET,"/api/missions").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+          
+          .requestMatchers(HttpMethod.GET,"/api/agent/*").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+          .requestMatchers(HttpMethod.GET,"/api/mission/*").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name(), Role.USER.name())
+
+          .requestMatchers(HttpMethod.POST,"/api/agent").hasAnyRole(Role.SUPERUSER.name())
+          .requestMatchers(HttpMethod.POST,"/api/mission").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+
+          .requestMatchers(HttpMethod.PUT,"/api/agent/*/mission/*").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+          .requestMatchers(HttpMethod.PUT,"/api/mission/*/status/*").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name(), Role.USER.name())
+
+          .requestMatchers(HttpMethod.DELETE,"/api/agent/*").hasAnyRole(Role.SUPERUSER.name())
+          .requestMatchers(HttpMethod.DELETE,"/api/mission/*").hasAnyRole(Role.SUPERUSER.name(), Role.ADMIN.name())
+          ;
+          
       })
       .formLogin(Customizer.withDefaults())
       .httpBasic(Customizer.withDefaults());
