@@ -20,6 +20,7 @@ public class Mission {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Byte id;
   private final String name;
+
   @Enumerated(EnumType.STRING)
   private Status status;
 
@@ -46,6 +47,15 @@ public class Mission {
 
   public void setStatus(Status status) {
     this.status = status;
+  }
+
+  @Override
+  public String toString() {
+      return "Mission{" +
+              "id=" + id +
+              ", name='" + name + '\'' +
+              ", status=" + status +
+              '}';
   }
 
 }

@@ -45,4 +45,14 @@ public class Agent {
     this.mission = mission;
   }
 
+  @Override
+  public String toString() {
+      return "Agent{" +
+              "id=" + this.id +
+              ", name='" + this.name + '\'' +
+              ", alias='" + this.alias + '\'' +
+              ", mission=" + this.mission +
+              '}';
+  }
+
 }
