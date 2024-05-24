@@ -13,12 +13,12 @@ public class Agent {
   private Byte id;
   private final String name;
   private final String alias;
-  private String mission;
+  private Byte missionId;
 
   public Agent(String name, String alias) {
     this.name = name;
     this.alias = alias;
-    this.mission = "none";
+    this.missionId = null;
   }
 
   public static Agent create(String name, String alias) {
@@ -37,12 +37,12 @@ public class Agent {
     return this.alias;
   }
 
-  public String getMission() {
-    return this.mission;
+  public Byte getMissionId() {
+    return this.missionId;
   }
 
-  public void setMission(String mission) {
-    this.mission = mission;
+  public void setMission(Byte missionId) {
+    this.missionId = missionId;
   }
 
   @Override
@@ -51,7 +51,7 @@ public class Agent {
               "id=" + this.id +
               ", name='" + this.name + '\'' +
               ", alias='" + this.alias + '\'' +
-              ", mission=" + this.mission +
+              ", mission=" + this.missionId +
               '}';
   }
 

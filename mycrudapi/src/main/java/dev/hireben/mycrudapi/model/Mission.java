@@ -20,7 +20,6 @@ public class Mission {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Byte id;
   private final String name;
-
   @Enumerated(EnumType.STRING)
   private Status status;
 
@@ -52,9 +51,9 @@ public class Mission {
   @Override
   public String toString() {
       return "Mission{" +
-              "id=" + id +
-              ", name='" + name + '\'' +
-              ", status=" + status +
+              "id=" + this.id +
+              ", name='" + this.name + '\'' +
+              ", status=" + this.status.name() +
               '}';
   }
 
