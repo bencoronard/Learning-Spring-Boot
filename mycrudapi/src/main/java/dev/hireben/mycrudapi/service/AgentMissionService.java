@@ -25,6 +25,10 @@ public class AgentMissionService {
     if (agent == null || mission == null) {
       throw new IllegalArgumentException("Unable to perform mission assignment");
     }
+    // Check if the mission is already completed
+    if (mission.getStatus() == Status.COMPLETED) {
+      throw new IllegalArgumentException("Mission already completed");
+    }
     // Update repositories
     agentService.updateAgent(alias, mission.getId());
     missionService.updateMission(missionName, Status.ASSIGNED);
