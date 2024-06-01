@@ -23,6 +23,11 @@ public class Mission {
   @Enumerated(EnumType.STRING)
   private Status status;
 
+  public Mission() {
+    this.name = "";
+    this.status = Status.UNASSIGNED;
+  }
+
   public Mission(String name) {
     this.name = name;
     this.status = Status.UNASSIGNED;

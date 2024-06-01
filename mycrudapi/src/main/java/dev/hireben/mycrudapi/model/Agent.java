@@ -15,6 +15,12 @@ public class Agent {
   private final String alias;
   private Byte missionId;
 
+  public Agent() {
+    this.name = "";
+    this.alias = "";
+    this.missionId = null;
+  }
+
   public Agent(String name, String alias) {
     this.name = name;
     this.alias = alias;
