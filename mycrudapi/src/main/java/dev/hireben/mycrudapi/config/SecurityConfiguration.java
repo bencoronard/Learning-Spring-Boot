@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.session.web.http.CookieSerializer;
+import org.springframework.session.web.http.DefaultCookieSerializer;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -88,5 +90,16 @@ public class SecurityConfiguration {
 
     return http.build();
   }
-  
+
+  @Bean
+    public CookieSerializer cookieSerializer() {
+        DefaultCookieSerializer cookieSerializer = new DefaultCookieSerializer();
+        cookieSerializer.setCookieName("RESSION");
+        cookieSerializer.setCookiePath("/");
+        cookieSerializer.setSameSite("None");
+        cookieSerializer.setUseSecureCookie(true);
+        cookieSerializer.setUseHttpOnlyCookie(true);
+        return cookieSerializer;
+    }
+
 }
